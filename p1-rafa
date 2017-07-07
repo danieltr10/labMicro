@@ -1,0 +1,23 @@
+.text
+.globl main
+
+main:
+	ADR		r0, string
+	MOV		r4, #10
+	MOV		r5, #0x30
+	MOV		r1, #0
+
+loop:	
+	LDRB	r2, [r0], #1
+	CMP		r2, #0
+	BEQ		end
+	SUB		r2, r2, r5
+	MUL		r3, r1, r4
+	ADD		r1, r3, r2
+	B		loop
+
+end:
+	MOV		r0, r1
+	SWI		0x123456
+
+string:	.byte	0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0
